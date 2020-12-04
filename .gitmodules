@@ -1,6 +1,6 @@
 [submodule "Wing/vendor/spdlog"]
 	path = Wing/vendor/spdlog
-	url = https://github.com/gabime/spdlog.git
+	url = https://gitee.com/xhguleixin123/spdlog.git
 [submodule "Wing/vendor/GLFW"]
 	path = Wing/vendor/GLFW
-	url = https://github.com/TheCherno/glfw.git
+	url = https://gitee.com/xhguleixin123/glfw.git

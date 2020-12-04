@@ -9,3 +9,5 @@
 #else
 	#error Wing only supports Winows
 #endif // W_PLATFORM_WINDOWS
+
+#define BIT(x) (1<<x)

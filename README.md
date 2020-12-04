@@ -1,6 +1,8 @@
 # Wing
 游戏引擎翼
 
+![图标](imgs/Wing.png)
+
 ## 克隆项目
 
 ```bash

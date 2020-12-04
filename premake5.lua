@@ -23,9 +23,13 @@ project "Wing"
         "%{prj.name}/src/**.cpp"
     }
 
+    pchheader "wpch.h"
+    pchsource "Wing/src/wpch.cpp"
+
     includedirs
     {
-        "Wing/vendor/spdlog/include"
+        "Wing/vendor/spdlog/include",
+        "Wing/src"
     }
 
     filter "system:windows"

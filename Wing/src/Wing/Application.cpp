@@ -1,3 +1,4 @@
+#include "wpch.h"
 #include "Application.h"
 
 namespace Wing {

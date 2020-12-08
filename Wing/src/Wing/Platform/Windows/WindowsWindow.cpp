@@ -1,15 +1,21 @@
 #include "wpch.h"
 #include "WindowsWindow.h"
 #include "Wing/Events/ApplicationEvent.h"
-
+#include "Wing/Log.h"
 namespace Wing
 {
+	static bool s_GLFWInitialized = false;
+
+	static void GLFWErrorCallback(int error, const char* description)
+	{
+		W_CORE_ERROR("GLFW Erro {0}:{1}", error, description);
+	}
+
 	Window* Window::Create(WindowProps& props)
 	{
 		return new WindowsWindow(props);
 	}
 
-	static bool s_GLFWInitialized = false;
 	WindowsWindow::WindowsWindow(WindowProps& props)
 	{
 		Init(props);
@@ -49,6 +55,7 @@ namespace Wing
 		{
 			int succeed = glfwInit();
 			W_CORE_ASSERT(succeed, "Could not initialize GLFW!");
+			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Ttile.c_str(), nullptr, nullptr);

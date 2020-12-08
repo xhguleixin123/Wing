@@ -1,15 +1,12 @@
 #pragma once
 #include "Wing/Window.h"
-
-#include <GLFW/glfw3.h>
-
+#include "GLFW/glfw3.h"
 namespace Wing
 {
 	class WindowsWindow : public Window
 	{
 	public:
-		WindowsWindow(const WindowProps& props);
-
+		WindowsWindow(WindowProps& props);
 		virtual ~WindowsWindow();
 
 		void OnUpdate() override;
@@ -18,17 +15,19 @@ namespace Wing
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
-		void SetVSync(bool enabled) override;
+		void SetVSync(bool enabled)override;
 		bool IsVSync() const override;
+
 	private:
-		virtual void Init(const WindowProps& props);
-		virtual void Shutdown();
+		virtual void Init(WindowProps& props);
+		virtual void ShutDown();
+
 	private:
 		GLFWwindow* m_Window;
 
 		struct WindowData
 		{
-			std::string Title;
+			std::string Ttile;
 			unsigned int Width, Height;
 			bool VSync;
 

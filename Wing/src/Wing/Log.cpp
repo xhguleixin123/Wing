@@ -7,7 +7,7 @@ namespace Wing
 	std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
 	void Log::Init()
 	{
-		spdlog::set_pattern("$^[%T] %n: %v%$");
+		spdlog::set_pattern("%^[%T] %n: %v%$");
 		s_CoreLogger = spdlog::stderr_color_mt("Wing");
 		s_CoreLogger->set_level(spdlog::level::trace);
 		s_ClientLogger = spdlog::stderr_color_mt("App");

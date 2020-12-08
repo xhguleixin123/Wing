@@ -11,12 +11,13 @@
 #endif // W_PLATFORM_WINDOWS
 
 #ifdef W_ENABLE_ASSERTS
-	#define W_ASSERT(x, ...) { if(!(x)) { W_ERROR("Assertion Failed: {0}", __VA_ARGS___); __debugbreak(); } }
-	#define HZ_CORE_ASSERT(x, ...) { if(!(x)) { HZ_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define W_CORE_ASSERT(x, ...) if(!(x)) { W_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }
+#define W_ASSERT(x, ...) if(!(x)) { W_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }
 #else
-	#define HZ_ASSERT(x, ...)
-	#define HZ_CORE_ASSERT(x, ...)
+#define W_CORE_ASSERT(x, ...)
+#define W_ASSERT(x, ...)
 #endif // W_ENABLE_ASSERTS
+
 
 
 #define BIT(x) (1<<x)

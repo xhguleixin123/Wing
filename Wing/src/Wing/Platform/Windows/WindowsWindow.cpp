@@ -1,58 +1,28 @@
 #include "wpch.h"
 #include "WindowsWindow.h"
-#include "Wing/Log.h"
+#include "Wing/Events/ApplicationEvent.h"
 
 namespace Wing
 {
-	static bool s_GLFWInitialized = false;
-
-	Window* Window::Create(const WindowProps& props)
+	Window* Window::Create(WindowProps& props)
 	{
 		return new WindowsWindow(props);
 	}
 
-	WindowsWindow::WindowsWindow(const WindowProps& props)
+	static bool s_GLFWInitialized = false;
+	WindowsWindow::WindowsWindow(WindowProps& props)
 	{
 		Init(props);
 	}
-
 	WindowsWindow::~WindowsWindow()
 	{
-		Shutdown();
+		ShutDown();
 	}
-
-	void WindowsWindow::Init(const WindowProps& props)
-	{
-		m_Data.Title = props.Title;
-		m_Data.Width = props.Width;
-		m_Data.Height = props.Height;
-
-		W_CORE_INFO("Creating window {0} {1}, {2}", props.Title, props.Width, props.Height);
-
-		if (!s_GLFWInitialized)
-		{
-			int success = glfwInit();
-			HZ_CORE_ASSERT(success, "Could not initialize GLFW!");
-			s_GLFWInitialized = true;
-		}
-
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(true);
-	}
-
-	void WindowsWindow::Shutdown()
-	{
-		glfwDestroyWindow(m_Window);
-	}
-
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
-
 	void WindowsWindow::SetVSync(bool enabled)
 	{
 		if (enabled)
@@ -65,10 +35,46 @@ namespace Wing
 		}
 		m_Data.VSync = enabled;
 	}
-
 	bool WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
 	}
+	void WindowsWindow::Init(WindowProps& props)
+	{
+		m_Data.Height = props.Height;
+		m_Data.Width = props.Width;
+		m_Data.Ttile = props.Ttile;
 
+		if (!s_GLFWInitialized)
+		{
+			int succeed = glfwInit();
+			W_CORE_ASSERT(succeed, "Could not initialize GLFW!");
+			s_GLFWInitialized = true;
+		}
+		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Ttile.c_str(), nullptr, nullptr);
+		glfwMakeContextCurrent(m_Window);
+		glfwSetWindowUserPointer(m_Window, &m_Data);
+		SetVSync(true);
+
+		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		{
+				WindowData data = *(WindowData*)glfwGetWindowUserPointer(window);
+				data.Width = width;
+				data.Height = height;
+
+				WindowResizeEvent event(width, height);
+				data.EventCallback(event);
+		});
+
+		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		{
+				WindowData data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowCloseEvent event;
+				data.EventCallback(event);
+		});
+	}
+	void WindowsWindow::ShutDown()
+	{
+		glfwDestroyWindow(m_Window);
+	}
 }

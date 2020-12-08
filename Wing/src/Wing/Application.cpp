@@ -1,24 +1,39 @@
 #include "wpch.h"
 #include "Application.h"
-#include "Events/ApplicationEvent.h"
 #include "Log.h"
-
+#include "Wing/Events/Event.h"
 #include <GLFW/glfw3.h>
 
 namespace Wing {
+#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application::Application()
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
 
 	Application::~Application()
 	{
 	}
 
+	void Application::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		// 调度窗口关闭事件
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		// 此事件日志
+		W_CORE_INFO(e);
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		m_Running = false;
+		return true;
+	}
+
+
 	void Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		W_TRACE(e);
 		while (m_Running)
 		{
 			glClearColor(1, 0, 1, 1);

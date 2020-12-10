@@ -2,6 +2,7 @@
 #include "WindowsWindow.h"
 #include "Wing/Events/ApplicationEvent.h"
 #include "Wing/Log.h"
+#include "glad/glad.h"
 namespace Wing
 {
 	static bool s_GLFWInitialized = false;
@@ -55,11 +56,14 @@ namespace Wing
 		{
 			int succeed = glfwInit();
 			W_CORE_ASSERT(succeed, "Could not initialize GLFW!");
+			
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Ttile.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		W_CORE_ASSERT(status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

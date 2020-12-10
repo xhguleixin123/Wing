@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "Wing/Events/Event.h"
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace Wing {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -10,6 +11,8 @@ namespace Wing {
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		unsigned VAO;
+		glGenVertexArrays(1, &VAO);
 	}
 
 	Application::~Application()

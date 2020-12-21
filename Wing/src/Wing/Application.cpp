@@ -24,8 +24,28 @@ namespace Wing {
 		EventDispatcher dispatcher(e);
 		// 调度窗口关闭事件
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		{
+			if (e.Handled)
+			{
+				break;
+			}
+			(*--it)->OnEvent(e);
+		}
+
 		// 此事件日志
 		W_CORE_INFO(e);
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_LayerStack.PushOverLay(layer);
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
@@ -41,6 +61,10 @@ namespace Wing {
 		{
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
 			m_Window->OnUpdate();
 		}
 	}

@@ -13,9 +13,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Wing/vendor/GLFW/include"
 IncludeDir["Glad"] = "Wing/vendor/Glad/include"
+IncludeDir["ImGui"] = "Wing/vendor/imgui"
 
 include "Wing/vendor/GLFW"
 include "Wing/vendor/Glad"
+include "Wing/vendor/imgui"
 
 project "Wing"
     location "Wing"
@@ -39,13 +41,15 @@ project "Wing"
         "Wing/vendor/spdlog/include",
         "Wing/src",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.Glad}"
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
     }
 
     links
     {
-        "Glad",
         "GLFW",
+        "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 

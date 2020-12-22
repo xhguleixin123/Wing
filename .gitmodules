@@ -4,3 +4,6 @@
 [submodule "Wing/vendor/GLFW"]
 	path = Wing/vendor/GLFW
 	url = https://gitee.com/xhguleixin123/glfw.git
+[submodule "Wing/vendor/imgui"]
+	path = Wing/vendor/imgui
+	url = https://gitee.com/xhguleixin123/imgui.git

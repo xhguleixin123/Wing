@@ -13,5 +13,5 @@ int main()
 }
 
 #else
-#error Wing only supports Winows
+#error Wing only supports Windows
 #endif // W_PLATFORM_WINDOWS

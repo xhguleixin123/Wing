@@ -1,4 +1,5 @@
 workspace "Wing"
+    startproject "Sandbox"
     architecture "x64"
     configurations
     {
@@ -18,6 +19,8 @@ IncludeDir["ImGui"] = "Wing/vendor/imgui"
 include "Wing/vendor/GLFW"
 include "Wing/vendor/Glad"
 include "Wing/vendor/imgui"
+
+
 
 project "Wing"
     location "Wing"

@@ -27,7 +27,7 @@ namespace Wing
 
 		struct WindowData
 		{
-			std::string Ttile;
+			std::string Title;
 			unsigned int Width, Height;
 			bool VSync;
 

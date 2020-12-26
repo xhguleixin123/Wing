@@ -74,14 +74,17 @@ project "Wing"
         }
     filter "configurations:Debug"
         defines "W_DEBUG"
+        buildoptions "/MD"
         symbols "On"
 
     filter "configurations:Release"
         defines "W_RELEASE"
+        buildoptions "/MD"
         optimize "On"
 
     filter "configurations:Dist"
         defines "W_DIST"
+        buildoptions "/MD"
         optimize "On"
 
 
@@ -124,14 +127,17 @@ project "Sandbox"
         
     filter "configurations:Debug"
         defines "W_DEBUG"
+        buildoptions "/MD"
         symbols "On"
 
     filter "configurations:Release"
         defines "W_RELEASE"
+        buildoptions "/MD"
         optimize "On"
 
     filter "configurations:Dist"
         defines "W_DIST"
+        buildoptions "/MD"
         optimize "On"
 
     

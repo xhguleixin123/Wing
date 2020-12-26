@@ -50,7 +50,7 @@ namespace Wing {
 
 	void Application::PushOverlay(Layer* layer)
 	{
-		m_LayerStack.PushOverLay(layer);
+		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
 	}
 

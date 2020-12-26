@@ -22,7 +22,7 @@ namespace Wing
 		m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer);
 	}
 
-	void LayerStack::PushOverLay(Layer* overlay)
+	void LayerStack::PushOverlay(Layer* overlay)
 	{
 		m_Layers.emplace_back(overlay);
 	}
@@ -37,7 +37,7 @@ namespace Wing
 		}
 	}
 
-	void LayerStack::PopOverLay(Layer* overlay)
+	void LayerStack::PopOverlay(Layer* overlay)
 	{
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())

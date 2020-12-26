@@ -7,11 +7,11 @@ namespace Wing
 {
 	struct WindowProps
 	{
-		std::string Ttile;
+		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
 		WindowProps(const std::string& title = "Wing Engine", unsigned int width = 1280, unsigned int height = 720)
-			: Ttile(title), Width(width), Height(height){}
+			: Title(title), Width(width), Height(height){}
 	};
 
 	class Window
